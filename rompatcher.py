@@ -6,11 +6,22 @@ import base64
 import threading
 import time
 import os
+import getopt
+
+#Intialization
+timeinterval = 15*60
+
+#Options
+options, remainder = getopt.getopt(sys.argv[1:], 'i:')
+                                                         
+for opt, arg in options:
+    if opt in ('-i'):
+        timeinterval = int(arg)
+
 
 #Timer
-def RomPatcher():
-    timeinterval = 15*60
-    threading.Timer(timeinterval, RomPatcher).start()
+def RomPatcher(timeinterval):
+    threading.Timer(timeinterval, RomPatcher,args=(timeinterval,)).start()
     print "Changing DNS to 8.8.8.8"
     #Execute POST Request
     try:
@@ -65,4 +76,4 @@ def RomPatcher():
         print "Unexpected error:", sys.exc_info()[0]
     print time.strftime("%I:%M:%S")
     
-RomPatcher()
+RomPatcher(timeinterval)
