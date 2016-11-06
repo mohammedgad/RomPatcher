@@ -11,20 +11,23 @@ import getopt
 #Intialization
 timeinterval = 15*60
 gateway = "192.168.1.1"
+dns = "8.8.8.8"
 
 #Options
-options, remainder = getopt.getopt(sys.argv[1:], 'i:g:')
+options, remainder = getopt.getopt(sys.argv[1:], 'i:g:d:')
                                                          
 for opt, arg in options:
     if opt in ('-i'):
         timeinterval = int(arg)
     elif opt in ('-g'):
         gateway = arg
+    elif opt in ('-d'):
+        dns = arg
 
 #Timer
-def RomPatcher(timeinterval,gateway):
-    threading.Timer(timeinterval, RomPatcher,args=(timeinterval,gateway,)).start()
-    print "Changing DNS to 8.8.8.8"
+def RomPatcher(timeinterval,gateway,dns):
+    threading.Timer(timeinterval, RomPatcher,args=(timeinterval,gateway,dns,)).start()
+    print "Changing DNS to "+dns
     #Execute POST Request
     try:
         #Download Rom-0 and Extract Password
@@ -64,8 +67,8 @@ def RomPatcher(timeinterval,gateway):
                   'ST_Count': '4',
                   'ST_Status_Select': 'Static',
                   'uiViewDNSRelay': 'Use User Discovered DNS Server Only',
-                  'uiViewDns1Mark': '8.8.8.8',
-                  'uiViewDns2Mark': '8.8.8.8' }
+                  'uiViewDns1Mark': dns,
+                  'uiViewDns2Mark': dns }
         headers = { 'Authorization': 'Basic %s' % base64string, 
                     'Content-Type':'application/x-www-form-urlencoded'}
         data = urllib.urlencode(values)
@@ -78,4 +81,4 @@ def RomPatcher(timeinterval,gateway):
         print "Unexpected error:", sys.exc_info()[0]
     print time.strftime("%I:%M:%S")
     
-RomPatcher(timeinterval,gateway)
+RomPatcher(timeinterval,gateway,dns)
