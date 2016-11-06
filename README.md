@@ -25,9 +25,11 @@ You can run RomPatcher script simply
 `python rompatcher.py`
 
 
+
 You can run RomPatcher script in background
 
 `pythonw rompatcher.py`
+
 
 
 You can change the default time interval the `15 minutes` by using `-i` argument
@@ -37,9 +39,13 @@ To make the script change your DNS every 30 seconds
 `python rompatcher.py -i 30`
 
 
-You can change the targeted **gateway IP** to your own IP in casse you want to run the script on your **remote server** by using `-g` argument
+
+You can change the targeted **gateway IP** to your own IP in casse you want to run the script on your **remote server** 
+
+by using `-g` argument
 
 `python rompatcher.py -g <your-ip>`
+
 
 
 You can Change the **DNS** to any DNS you want by using `-d` argument
